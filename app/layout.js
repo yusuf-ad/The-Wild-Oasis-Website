@@ -3,8 +3,8 @@ export const metadata = {
   description: "A beautiful oasis in the wild",
 };
 
-import Logo from "./components/Logo";
-import Navigation from "./components/Navigation";
+import Logo from "./_components/Logo";
+import Navigation from "./_components/Navigation";
 
 // children prop will always be the current page component
 function RootLayout({ children }) {
