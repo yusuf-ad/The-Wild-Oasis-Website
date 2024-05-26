@@ -70,3 +70,26 @@ Elbette, işte bu uzun açıklamanın özetini Türkçe olarak İngilizce kavram
 - **Devam Eden İşlem (Ongoing Process)**: İlk render sonrası, sunucu bileşenleri sadece web sunucusunda, istemci bileşenleri ise tarayıcıda çalışır.
 
 Bu açıklamalar, RSC ve SSR teknolojilerinin nasıl etkileşimde bulunduğunu ve birlikte nasıl çalıştığını anlamamıza yardımcı olur.
+
+## css styling
+
+<!-- main will occupy the remaining part -->
+
+```html
+<html lang="en">
+  <body
+    className="{`${josefin.className}"
+    bg-primary-950
+    text-primary-100
+    min-h-screen
+    flex
+    flex-col`}
+  >
+    <header />
+
+    <div className="flex-1 px-8 py-12">
+      <main className="max-w-7xl mx-auto">{children}</main>
+    </div>
+  </body>
+</html>
+```
