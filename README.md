@@ -93,3 +93,6 @@ Bu açıklamalar, RSC ve SSR teknolojilerinin nasıl etkileşimde bulunduğunu v
   </body>
 </html>
 ```
+
+object-cover
+aspect-square
