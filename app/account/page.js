@@ -3,7 +3,11 @@ export const metadata = {
 };
 
 function Page() {
-  return <div>accounts page</div>;
+  return (
+    <h2 className="mb-7 text-2xl font-semibold text-accent-400">
+      Welcome, Jonas
+    </h2>
+  );
 }
 
 export default Page;
