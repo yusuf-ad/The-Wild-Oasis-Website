@@ -75,7 +75,7 @@ Bu açıklamalar, RSC ve SSR teknolojilerinin nasıl etkileşimde bulunduğunu v
 
 <!-- main will occupy the remaining part -->
 
-```html
+```jsx
 <html lang="en">
   <body
     className="{`${josefin.className}"
@@ -98,3 +98,25 @@ Bu açıklamalar, RSC ve SSR teknolojilerinin nasıl etkileşimde bulunduğunu v
 
 object-cover
 aspect-square
+
+<!-- Using Image  -->
+
+```jsx
+<div className="col-span-2">
+  <image
+    src="{Img1}"
+    alt="Family sitting around a fire pit in front of cabin"
+    placeholder="blur"
+    quality="{80}"
+  />
+</div>
+
+<div className="relative col-span-2 aspect-square w-full">
+  <image
+    fill
+    className="object-cover object-center"
+    src="/about-2.jpg"
+    alt="Family that manages The Wild Oasis"
+  />
+</div>
+```
