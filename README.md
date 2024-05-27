@@ -79,16 +79,18 @@ Bu açıklamalar, RSC ve SSR teknolojilerinin nasıl etkileşimde bulunduğunu v
 <html lang="en">
   <body
     className="{`${josefin.className}"
+    flex
+    min-h-screen
+    flex-col
     bg-primary-950
     text-primary-100
-    min-h-screen
-    flex
-    flex-col`}
+    antialiased
+    `}
   >
     <header />
 
-    <div className="flex-1 px-8 py-12">
-      <main className="max-w-7xl mx-auto">{children}</main>
+    <div className="grid flex-1 px-8 py-12">
+      <main className="mx-auto max-w-7xl">{children}</main>
     </div>
   </body>
 </html>
