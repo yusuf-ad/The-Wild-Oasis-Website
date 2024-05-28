@@ -120,3 +120,5 @@ aspect-square
   />
 </div>
 ```
+
+Only rendering errors will be caught in React Error Boundary
