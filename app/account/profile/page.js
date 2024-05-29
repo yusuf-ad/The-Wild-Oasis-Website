@@ -47,12 +47,12 @@ export default function Page() {
             />
           </div>
 
-          <SelectCountry
+          {/* <SelectCountry
             name="nationality"
             id="nationality"
             className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 shadow-sm"
             defaultCountry={nationality}
-          />
+          /> */}
         </div>
 
         <div className="space-y-2">
