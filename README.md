@@ -121,14 +121,14 @@ aspect-square
 </div>
 ```
 
-Only rendering errors will be caught in React Error Boundary
+# React Error Boundary
 
-So if in your own applications,
+Only rendering errors will be caught in React Error Boundary.
 
-you ever have a finite set of values
+## Application Considerations
 
-for a dynamic segment of a URL,
+In your own applications, if you ever have a finite set of values for a dynamic segment of a URL, it's always a good idea to inform Next.js about those.
 
-it's always a good idea to tell Next.js about those
+## Using generateStaticParams() Function
 
-by using generateStaticParams() function.
+You can do this by using the `generateStaticParams()` function.
