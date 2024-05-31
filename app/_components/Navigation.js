@@ -1,35 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const links = [
+  { href: "/cabins", label: "Cabins" },
+  { href: "/about", label: "About" },
+  { href: "/account", label: "Guest area" },
+];
 
 export default function Navigation() {
+  const pathname = usePathname();
+
+  console.log(pathname);
+
   return (
     <nav className="z-10 text-xl">
       <ul className="flex items-center gap-16">
-        <li>
-          <Link
-            href="/cabins"
-            className="transition-colors hover:text-accent-400"
-          >
-            Cabins
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/about"
-            className="transition-colors hover:text-accent-400"
-          >
-            About
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/account"
-            className="transition-colors hover:text-accent-400"
-          >
-            Guest area
-          </Link>
-        </li>
+        {links.map((link) => (
+          <li key={link.label}>
+            <Link
+              href={link.href}
+              className={`${pathname === link.href ? "text-accent-400" : ""} transition-colors hover:text-accent-400`}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

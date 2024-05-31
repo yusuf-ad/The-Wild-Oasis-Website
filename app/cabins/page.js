@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
+import Filter from "../_components/Filter";
 
 export const metadata = {
   title: "Cabins",
@@ -9,9 +10,13 @@ export const metadata = {
 
 // ! incremental static regeneration
 // Revalidate the page every 3600 seconds
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
-export default function Page() {
+// searchparams switch static to dynamic because we cant know the value of the searchparams at build time
+
+export default function Page({ searchParams }) {
+  const filter = searchParams?.capacity ?? "all";
+
   return (
     <div>
       <h1 className="mb-5 text-4xl font-medium text-accent-400">
@@ -26,8 +31,12 @@ export default function Page() {
         Welcome to paradise.
       </p>
 
-      <Suspense fallback={<Spinner />}>
-        <CabinList />
+      <div className="mb-8 flex justify-end">
+        <Filter />
+      </div>
+
+      <Suspense key={filter} fallback={<Spinner />}>
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
