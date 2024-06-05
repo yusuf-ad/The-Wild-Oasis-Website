@@ -132,3 +132,5 @@ In your own applications, if you ever have a finite set of values for a dynamic 
 ## Using generateStaticParams() Function
 
 You can do this by using the `generateStaticParams()` function.
+
+To go around this, you'll have to check the incoming request path and then use some if statements to perform different actions depending on the path. Something like this: https://www.reddit.com/r/nextjs/comments/10ivrlv/using_different_middleware_on_different_routes/
