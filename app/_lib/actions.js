@@ -57,6 +57,4 @@ export async function updateGuest(formData) {
   }
 
   revalidatePath("/account/profile");
-
-  return data;
 }
