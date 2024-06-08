@@ -220,3 +220,33 @@ Server Actions significantly simplify the process of making interactive, full-st
 3. How to debug and monitor Server Actions in a production environment?
 
 This summary captures the essential aspects of Server Actions, their purpose, usage, and benefits within the Next.js framework. For more detailed information, refer to the official Next.js documentation and practical examples provided therein【5†source】.
+
+So it's always the same thing when we do some server action
+
+and we then want the result of that action
+
+to be reflected in the UI,
+
+all we do is to re-fetch the data.
+
+So we clear the cache, get the fresh data,
+
+and then that fresh data will be rendered here.
+
+In this case, that fresh data would no longer include
+
+that deleted cabin or actually the deleted reservation.
+
+And when a state update is marked as a transition
+
+by using the useTransition hook,
+
+that state update will happen without blocking the UI.
+
+So, which means that the UI will stay responsive
+
+during a re-render,
+
+and we also get an indication
+
+that a state transition is happening.
