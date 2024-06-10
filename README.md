@@ -250,3 +250,17 @@ during a re-render,
 and we also get an indication
 
 that a state transition is happening.
+
+So essentially, optimistic UI is a trick
+
+and a technique that we can use in order to improve
+
+the perceived performance of a user interface.
+
+And it's called optimistic because we assume
+
+that a certain asynchronous operation will be successful
+
+before it has even finished,
+
+so while it's still working in the background.
