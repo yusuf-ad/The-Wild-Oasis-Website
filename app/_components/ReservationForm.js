@@ -1,12 +1,31 @@
 "use client";
 
+import { differenceInDays } from "date-fns";
 import { useReservation } from "./ReservationContext";
+import { createReservation } from "../_lib/actions";
+import { useFormStatus } from "react-dom";
 
 function ReservationForm({ cabin, user }) {
-  const { range } = useReservation();
+  const { range, resetRange } = useReservation();
 
-  // CHANGE
-  const { maxCapacity } = cabin;
+  const { maxCapacity, regularPrice, discount, id } = cabin;
+
+  const startDate = range.from;
+  const endDate = range.to;
+
+  const numNights = differenceInDays(endDate, startDate);
+  const cabinPrice = numNights * (regularPrice - discount);
+
+  const bookingData = {
+    startDate,
+    endDate,
+    numNights,
+    cabinPrice,
+    cabinId: id,
+  };
+
+  // bind method will change the order of the arguments
+  const createReservationWithData = createReservation.bind(null, bookingData);
 
   return (
     <div className="scale-[1.01]">
@@ -25,7 +44,15 @@ function ReservationForm({ cabin, user }) {
         </div>
       </div>
 
-      <form className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg">
+      <form
+        // action={createReservationWithData}
+        action={async (formData) => {
+          await createReservationWithData(formData);
+
+          resetRange();
+        }}
+        className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg"
+      >
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select
@@ -45,6 +72,18 @@ function ReservationForm({ cabin, user }) {
           </select>
         </div>
 
+        <div className="my-1 flex items-center gap-4">
+          <input
+            id="hasBreakfast"
+            name="hasBreakfast"
+            type="checkbox"
+            className="h-7 w-7 accent-slate-600"
+          />
+          <label className="cursor-pointer select-none" htmlFor="hasBreakfast">
+            Do you want to have breakfast?
+          </label>
+        </div>
+
         <div className="space-y-2">
           <label htmlFor="observations">
             Anything we should know about your stay?
@@ -60,9 +99,7 @@ function ReservationForm({ cabin, user }) {
         <div className="flex items-center justify-end gap-6">
           <p className="text-base text-primary-300">Start by selecting dates</p>
 
-          <button className="bg-accent-500 px-8 py-4 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-            Reserve now
-          </button>
+          <Button>Reserve now</Button>
         </div>
       </form>
     </div>
@@ -70,3 +107,16 @@ function ReservationForm({ cabin, user }) {
 }
 
 export default ReservationForm;
+
+function Button({ children }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      disabled={pending}
+      className="bg-accent-500 px-8 py-4 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
+    >
+      {pending ? "Creating..." : children}
+    </button>
+  );
+}

@@ -61,30 +61,36 @@ export async function updateGuest(formData) {
   revalidatePath("/account/profile");
 }
 
-export async function deleteReservation(bookingId) {
+export async function createReservation(bookingData, formData) {
+  console.log(formData);
+
   const session = await auth();
 
   if (!session) throw new Error("You must be logged in");
 
-  const guestBookings = await getBookings(session.user.guestId);
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: +formData.get("numGuests"),
+    observations: formData.get("observations").slice(0, 1000),
+    extrasPrice: 0,
+    totalPrice: bookingData.cabinPrice,
+    isPaid: false,
+    hasBreakfast: formData.get("hasBreakfast") ? true : false,
+    status: "unconfirmed",
+  };
 
-  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+  console.log(newBooking);
 
-  if (!guestBookingsIds.includes(bookingId)) {
-    throw new Error("You are not allowed to delete this booking!");
-  }
-
-  const { error } = await supabase
-    .from("bookings")
-    .delete()
-    .eq("id", bookingId);
+  const { error } = await supabase.from("bookings").insert([newBooking]);
 
   if (error) {
-    console.error(error);
-    throw new Error("Booking could not be deleted");
+    throw new Error("Booking could not be created");
   }
 
-  revalidatePath("/account/reservations");
+  revalidatePath(`/cabins/${bookingData.cabinId}`);
+
+  redirect("/cabins/thankyou");
 }
 
 export async function updateReservation(formData) {
@@ -120,4 +126,30 @@ export async function updateReservation(formData) {
   revalidatePath(`/account/reservations/edit/${bookingId}`);
 
   redirect("/account/reservations");
+}
+
+export async function deleteReservation(bookingId) {
+  const session = await auth();
+
+  if (!session) throw new Error("You must be logged in");
+
+  const guestBookings = await getBookings(session.user.guestId);
+
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIds.includes(bookingId)) {
+    throw new Error("You are not allowed to delete this booking!");
+  }
+
+  const { error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", bookingId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be deleted");
+  }
+
+  revalidatePath("/account/reservations");
 }
